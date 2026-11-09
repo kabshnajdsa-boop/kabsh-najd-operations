@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>خطة رفع متوسط السلة — كبش نجد</title>
+<link rel="stylesheet" href="fonts/local.css">
+<style>
+  :root{
+    --red:#8B1E1E; --red-2:#A82B2B; --ink:#1F1A17; --muted:#6B625C; --line:#E7DED3;
+    --cream:#FBF6EF; --cream-2:#F4EBDD; --green:#2F6B3F; --amber:#B7791F;
+  }
+  @page{ size:A4; margin:11mm 12mm 11mm 12mm; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#fff; }
+  body{ font-family:"IBM Plex Sans Arabic", sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.5; }
+  h1,h2,h3{ margin:0; line-height:1.3; }
+  h2{ font-size:13.5pt; color:var(--red); margin:0 0 8px; padding-bottom:6px; border-bottom:2px solid var(--red); }
+  h3{ font-size:11.5pt; margin:0 0 4px; }
+  p{ margin:0 0 8px; }
+  .page{ page-break-after:always; }
+  .page:last-child{ page-break-after:auto; }
+  .muted{ color:var(--muted); }
+  .num{ font-variant-numeric:tabular-nums; direction:ltr; unicode-bidi:isolate; display:inline-block; }
+  td.num{ display:table-cell; direction:rtl; unicode-bidi:normal; }
+
+  /* cover */
+  .cover-band{ background:var(--red); color:#fff; border-radius:10px; padding:16px 20px; margin-bottom:12px; }
+  .cover-band .kicker{ font-size:10pt; opacity:.85; }
+  .cover-band h1{ font-size:24pt; margin:4px 0 6px; }
+  .cover-band .sub{ font-size:11pt; opacity:.92; }
+  .meta{ display:flex; gap:18px; font-size:9pt; color:var(--muted); margin:-6px 0 14px; flex-wrap:wrap; }
+
+  .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+  .kpi{ background:var(--cream); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .kpi .l{ font-size:8.5pt; color:var(--muted); }
+  .kpi .v{ font-size:17pt; font-weight:700; }
+  .kpi .d{ font-size:8.5pt; }
+  .kpi.hl{ background:var(--red); color:#fff; border-color:var(--red); }
+  .kpi.hl .l,.kpi.hl .d{ color:#fff; opacity:.9; }
+
+  .callout{ background:var(--cream-2); border-right:4px solid var(--red); border-radius:6px; padding:8px 12px; margin:8px 0; }
+  .callout b{ color:var(--red); }
+
+  ul.tight{ margin:4px 0 8px; padding-right:18px; }
+  ul.tight li{ margin-bottom:3px; }
+
+  table{ width:100%; border-collapse:collapse; font-size:9.3pt; margin:6px 0 10px; }
+  th{ background:var(--red); color:#fff; font-weight:600; text-align:right; padding:6px 8px; }
+  td{ padding:4px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  tr:nth-child(even) td{ background:#FDFBF8; }
+  td.n, th.n{ text-align:left; }
+  .neg{ color:var(--red); font-weight:600; }
+  .pos{ color:var(--green); font-weight:600; }
+
+  /* bridge chart */
+  .bridge{ margin:6px 0 4px; }
+  .brow{ display:grid; grid-template-columns:170px 1fr 60px; align-items:center; gap:8px; margin:3px 0; font-size:9.3pt; }
+  .track{ position:relative; height:18px; background:#F6F1EA; border-radius:3px; }
+  .bar{ position:absolute; top:0; height:18px; border-radius:3px; }
+  .bar.base{ background:#8E8379; }
+  .bar.up{ background:var(--green); }
+  .bar.up.lo{ background:#9CC3A6; }
+  .bar.total{ background:var(--red); }
+  .tick{ position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--red); }
+  .axis{ display:grid; grid-template-columns:170px 1fr 60px; gap:8px; font-size:8pt; color:var(--muted); }
+  .axis .scale{ position:relative; height:12px; }
+  .axis .scale span{ position:absolute; transform:translateX(50%); }
+
+  /* rec cards */
+  .rec{ border:1px solid var(--line); border-radius:8px; padding:7px 10px 5px; margin-bottom:6px; page-break-inside:avoid; }
+  .rec .hd{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:4px; }
+  .rec .no{ background:var(--red); color:#fff; border-radius:50%; width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:10pt; flex:none; margin-left:8px; }
+  .rec .title{ display:flex; align-items:center; font-weight:700; font-size:11.3pt; }
+  .tags{ display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+  .tag{ font-size:8pt; border-radius:20px; padding:1px 8px; border:1px solid var(--line); background:var(--cream); white-space:nowrap; }
+  .tag.imp{ background:#EAF3EC; border-color:#CFE3D4; color:var(--green); font-weight:600; }
+  .tag.conf-h{ background:#EAF3EC; color:var(--green); border-color:#CFE3D4; }
+  .tag.conf-m{ background:#FFF6E6; color:var(--amber); border-color:#F2DDB5; }
+  .tag.conf-l{ background:#F7ECEC; color:var(--red); border-color:#EBCACA; }
+  .rec .grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px 14px; font-size:8.9pt; }
+  .rec .grid div b{ color:var(--muted); font-weight:600; }
+  .rec .full{ grid-column:1 / -1; }
+
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .box{ border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:#fff; }
+  .box h3{ color:var(--red); }
+
+  .timeline{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .phase{ background:var(--cream); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:9.3pt; }
+  .phase .w{ font-weight:700; color:var(--red); margin-bottom:4px; }
+
+  .foot{ font-size:8pt; color:var(--muted); border-top:1px solid var(--line); padding-top:6px; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — Summary -->
+<section class="page">
+  <div class="cover-band">
+    <div class="kicker">كبش نجد · توصيات وتحسينات</div>
+    <h1>خطة رفع متوسط السلة إلى 800 ريال</h1>
+    <div class="sub">مبنية على بيانات المتجر الفعلية من سلة عبر جود — الأسبوع 2–8 نوفمبر مقابل 26 أكتوبر–1 نوفمبر 2026</div>
+  </div>
+  <div class="meta">
+    <span>تاريخ الإعداد: 9 نوفمبر 2026</span>
+    <span>المصدر: سلة (التقارير اليومية، المبيعات حسب القناة والمنتج، 660 طلبًا يدويًا)</span>
+    <span>التوقيت: الرياض</span>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">المتوسط السابق</div><div class="v num" dir="ltr">772</div><div class="d">ريال · 26 أكتوبر–1 نوفمبر</div></div>
+    <div class="kpi"><div class="l">المتوسط الحالي</div><div class="v num" dir="ltr">744</div><div class="d">ريال · 2–8 نوفمبر</div></div>
+    <div class="kpi"><div class="l">الانخفاض الفعلي</div><div class="v num" dir="ltr">&#x2212;28</div><div class="d">ريال (−3.6%) وليس 100</div></div>
+    <div class="kpi hl"><div class="l">المطلوب للوصول إلى 800</div><div class="v num" dir="ltr">+56</div><div class="d">ريال (+7.5%)</div></div>
+  </div>
+
+  <h2>الخلاصة</h2>
+  <div class="callout">
+    <b>أين ذهب المتوسط؟</b> حوالي <b>85%</b> من الانخفاض (−24 من −28 ريالًا) جاء من <b>الطلبات اليدوية</b> التي يُدخلها الفريق في لوحة سلة (هاتف، واتساب، معرض). متوسط هذه الطلبات انخفض من 772 إلى 655 ريالًا، لأن طلبات <b>1000 ريال فأكثر انخفضت إلى النصف</b> (من 49 إلى 24 طلبًا). هذه الطلبات الكبيرة تتركز في <b>أيام الرواتب</b> (27 من الشهر وأول الشهر).
+  </div>
+  <ul class="tight">
+    <li><b>الموقع والتطبيق ليسا سبب المشكلة:</b> الموقع −5 ريالات، والتطبيق +4 ريالات.</li>
+    <li><b>الخصومات والشحن ليسا السبب:</b> الخصم ثابت عند نحو 6 ريالات للطلب، والشحن −1 ريال.</li>
+    <li><b>تحوّل إلى منتجات أرخص في الطلبات اليدوية:</b> زادت حصة «خروف الجوهر» (من 11% إلى 17%) مع الاتجاه إلى «الجوهر اللباني» بسعر 399، وتراجعت البوكسات، خصوصًا «بوكس حري بلدي».</li>
+    <li><b>إلغاءات مرتفعة:</b> 28–29% من الطلبات اليدوية تُلغى، وتصل إلى 41% في «ذبيحة مع الرز».</li>
+    <li><b>الأهم للربحية:</b> عدد الطلبات انخفض 33%، والهامش انخفض 38%. أي حل يرفع المتوسط ويخفض الطلبات ليس نجاحًا.</li>
+  </ul>
+
+  <h2>الطريق إلى 800</h2>
+  <p class="muted" style="font-size:9pt">تقدير أثر كل توصية على متوسط المتجر (ريال/طلب). اللون الداكن = سيناريو مرجّح، والفاتح = محافظ. خُصم 20% لتداخل التوصيات.</p>
+  <div class="bridge">
+  <div class="axis"><div></div><div class="scale"><span style="right:0%">720</span><span style="right:25%">745</span><span style="right:50%">770</span><span style="right:75%">795</span><span style="right:100%">820</span></div><div></div></div>
+  <div class="brow"><div>المتوسط الحالي</div><div class="track"><div class="bar base" style="right:0;width:24%"></div><div class="tick" style="right:80%"></div></div><div class="num" dir="ltr">744</div></div>
+  <div class="brow"><div>1. استعادة الطلبات الكبيرة اليدوية</div><div class="track"><div class="bar up" style="right:24%;width:15%"></div><div class="bar up lo" style="right:24%;width:8%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+8 / +15</div></div>
+  <div class="brow"><div>2. باقات «بوكسين» وترقية الحجم</div><div class="track"><div class="bar up" style="right:39%;width:10%"></div><div class="bar up lo" style="right:39%;width:5%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+5 / +10</div></div>
+  <div class="brow"><div>3. إضافات السلة بنقرة واحدة</div><div class="track"><div class="bar up" style="right:49%;width:10%"></div><div class="bar up lo" style="right:49%;width:5%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+5 / +10</div></div>
+  <div class="brow"><div>4. ترتيب الأقسام والحجم الافتراضي</div><div class="track"><div class="bar up" style="right:59%;width:8%"></div><div class="bar up lo" style="right:59%;width:3%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+3 / +8</div></div>
+  <div class="brow"><div>5. هدية/شحن مجاني فوق 850</div><div class="track"><div class="bar up" style="right:67%;width:10%"></div><div class="bar up lo" style="right:67%;width:4%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+4 / +10</div></div>
+  <div class="brow"><div>6. ترقية «الجوهر»</div><div class="track"><div class="bar up" style="right:77%;width:6%"></div><div class="bar up lo" style="right:77%;width:3%"></div><div class="tick" style="right:80%"></div></div><div class="num pos" dir="ltr">+3 / +6</div></div>
+  <div class="brow"><div>المجموع قبل التداخل</div><div class="track"><div class="bar up" style="right:0;width:83%;opacity:.35"></div><div class="tick" style="right:80%"></div></div><div class="num" dir="ltr">772 / 803</div></div>
+  <div class="brow" style="margin-top:6px"><div><b>بعد خصم التداخل 20%</b></div><div class="track"><div class="bar total" style="right:0;width:71%"></div><div class="bar base" style="right:0;width:46%;opacity:.55"></div><div class="tick" style="right:80%"></div></div><div class="num" dir="ltr"><b>766 / 791</b></div></div>
+  <div class="axis" style="margin-top:2px"><div></div><div style="position:relative;height:12px"><span style="position:absolute;right:80%;transform:translateX(50%);color:#8B1E1E;font-weight:600">الهدف 800</span></div><div></div></div>
+  </div>
+  <div class="callout" style="margin-top:12px">
+    <b>التقدير الصريح:</b> السيناريو المرجّح يصل إلى نحو <b>791 ريالًا</b> في المتوسط، ويتجاوز <b>800</b> في أسابيع الرواتب (كانت تصل إلى نحو 785 دون أي تدخل). الوصول الثابت إلى 800 في كل الأسابيع <b>يحتاج نجاح اختبارَي الباقات وعتبة الهدية</b>، ولا تكفي الأدلة الحالية لضمانه.
+  </div>
+</section>
+
+<!-- PAGE 2 — Recommendations -->
+<section class="page">
+  <h2>التوصيات مرتبة حسب الأثر وقوة الدليل</h2>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">1</span>استعادة الطلبات الكبيرة اليدوية في أسابيع الرواتب</div>
+      <div class="tags"><span class="tag imp">+8 إلى +15 ريال</span><span class="tag conf-h">ثقة: متوسطة–عالية</span><span class="tag">أسبوع للتنفيذ</span></div></div>
+    <div class="grid">
+      <div class="full"><b>المشكلة المثبتة:</b> طلبات 1000 ريال فأكثر اليدوية انخفضت من 49 إلى 24، وتتركز في 27 من الشهر وأول الشهر. هذه الطلبات وحدها تفسّر نحو 15 ريالًا من الانخفاض.</div>
+      <div><b>المستهدف:</b> من اشترى سابقًا ذبيحة كاملة، أو «ذبيحة مع الرز»، أو حاشي 20 كيلو، أو بوكسين.</div>
+      <div><b>التنفيذ:</b> قائمة تواصل (اتصال وواتساب) من 26 إلى 2 من كل شهر، ونص للموظف يقترح الحجم الأكبر أولًا.</div>
+      <div><b>التكلفة:</b> وقت فريق المبيعات وقوالب واتساب، دون خصم.</div>
+      <div><b>القياس:</b> حجب 20% من القائمة عشوائيًا كمجموعة مقارنة، ومقارنة المتوسط والطلبات والهامش.</div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">2</span>دفع «بوكسين» والأحجام الكبيرة بدل البوكس الواحد</div>
+      <div class="tags"><span class="tag imp">+5 إلى +10 ريال</span><span class="tag conf-m">ثقة: متوسطة</span><span class="tag">أسبوعان</span></div></div>
+    <div class="grid">
+      <div class="full"><b>المشكلة المثبتة:</b> تراجعت البوكسات في الطلبات اليدوية (من 45% إلى 36%). مبيعات «بوكس حري بلدي» انخفضت 54%، و«بوكس نعيمي بلدي» 48%، وكلاهما أكثر من انخفاض الطلبات (33%). البوكس الواحد يُباع بين 376 و567 ريالًا، و«بوكسين 6+6» بين 780 و1046.</div>
+      <div><b>التنفيذ:</b> رسالة «اختر بوكسين ووفّر» في صفحة البوكس وفي السلة، وتوفير صغير مقارنة بشراء بوكسين منفصلين.</div>
+      <div><b>تحقق أولًا:</b> هل نفدت أحجام 5/8/14 كيلو في ذلك الأسبوع؟ يُراجع سجل المخزون.</div>
+      <div><b>المخاطرة:</b> أن ينتقل المشتري من منتج أعلى هامشًا. يُراجع الهامش في أودو.</div>
+      <div><b>القياس:</b> اختبار A/B على صفحات البوكسات: حصة البوكسين، والهامش لكل طلب.</div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">3</span>إضافات السلة بنقرة واحدة</div>
+      <div class="tags"><span class="tag imp">+5 إلى +10 ريال</span><span class="tag conf-m">ثقة: متوسطة</span><span class="tag">أسبوعان</span></div></div>
+    <div class="grid">
+      <div class="full"><b>المشكلة المثبتة:</b> عدد الوحدات في الطلب انخفض (من 1.46 إلى 1.42)، وعدد سطور الطلب اليدوي من 1.19 إلى 1.16. الإضافات تُباع فعلًا: مفروم 3 كيلو (130–170 ريالًا)، ومشكل بالعظم 1 كيلو (70–93 ريالًا)، وكبدة، وبرجر.</div>
+      <div><b>التنفيذ:</b> بلوك «أكمل وليمتك» في السلة لطلبات الذبائح والبوكسات: مفروم 1–3 كيلو، وكبدة، وبرجر، دون خصم.</div>
+      <div><b>القياس:</b> اختبار A/B بنسبة 50/50 لمدة 14 يومًا على الأقل، مع ألا ينخفض معدل إتمام الدفع.</div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">4</span>ترتيب صفحات الأقسام والحجم الافتراضي</div>
+      <div class="tags"><span class="tag imp">+3 إلى +8 ريال</span><span class="tag conf-m">ثقة: متوسطة</span><span class="tag">يوم واحد</span></div></div>
+    <div class="grid">
+      <div class="full"><b>الملاحظة:</b> في قسم «نعيمي وحري بلدي» يبدأ الصف الأول ببوكسات «ابتداءً من 496» وبالمفروم، بينما «بوكس نعيمي بلدي كبير» (950 ريالًا، 31 تقييمًا) في الصف الثاني.</div>
+      <div><b>التنفيذ:</b> الصف الأول للبوكسات الكبيرة والباقات، والحجم الافتراضي 8 كيلو بدل الأصغر، والمفروم والكبدة في الأسفل وكإضافات.</div>
+      <div><b>المعيار:</b> ترتيب حسب الإيراد أو الهامش لكل مشاهدة، لا حسب السعر الأعلى فقط.</div>
+      <div class="full"><b>القياس:</b> تطبيق الترتيب على نصف الأقسام أو مقارنة أسبوع بأسبوع (دون أسابيع الرواتب). يُعاد الترتيب القديم إذا انخفض التحويل أكثر من 5%. يؤثر هذا على طلبات الموقع فقط، وهي نحو 30% من الطلبات.</div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">5</span>هدية أو شحن مجاني للطلبات من 850 ريالًا فأكثر (اختبار)</div>
+      <div class="tags"><span class="tag imp">+4 إلى +10 ريال</span><span class="tag conf-l">ثقة: منخفضة</span><span class="tag">أسبوعان</span></div></div>
+    <div class="grid">
+      <div class="full"><b>المنطق:</b> نحو 8% من الطلبات بين 700 و799 ريالًا، أي قريبة من العتبة. رسوم الشحن الحالية نحو 12 ريالًا للطلب، فالهدية (مثل مفروم 1 كيلو أو كبدة) قد تكون أقوى أثرًا من الشحن المجاني.</div>
+      <div><b>التكلفة:</b> تكلفة الهدية لكل طلب مؤهل، ويُحسب صافي الهامش بعدها.</div>
+      <div><b>القياس:</b> تقسيم زمني، مع متابعة حصة الطلبات من 800 فأكثر وصافي الهامش.</div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="hd"><div class="title"><span class="no">6</span>ترقية «خروف الجوهر» ومنع التحوّل إلى الأرخص</div>
+      <div class="tags"><span class="tag imp">+3 إلى +6 ريال</span><span class="tag conf-m">ثقة: متوسطة</span><span class="tag">أسبوع</span></div></div>
+    <div class="grid">
+      <div class="full"><b>المشكلة المثبتة:</b> حصة «الجوهر» في الطلبات اليدوية ارتفعت من 11% إلى 17%، ومتوسط طلبه انخفض من 657 إلى 533 ريالًا (الاتجاه إلى «اللباني» بسعر 399).</div>
+      <div><b>التنفيذ:</b> عرض الترقية مع فرق السعر (اللباني ← الهرفي أو الجذع)، وباقة «الجوهر + 2 كيلو مفروم».</div>
+      <div><b>القياس:</b> اختبار A/B في صفحة المنتج، ونص للموظفين يختلف يومًا بيوم، مع متابعة الهامش لكل طلب.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 3 — Enablers, plan, KPIs -->
+<section class="page">
+  <h2>تحسينات داعمة (لا ترفع المتوسط مباشرة لكنها تحمي الربحية)</h2>
+  <div class="two">
+    <div class="box">
+      <h3>خفض إلغاءات الطلبات اليدوية</h3>
+      <p>من 28 إلى 29% من الطلبات اليدوية تُلغى (102 من 348، ثم 89 من 312). أعلى نسبة في «ذبيحة مع الرز» (41.5%) و«الجوهر» (30%).</p>
+      <ul class="tight">
+        <li>عربون أو رابط دفع للطلبات من 800 ريال فأكثر قبل التأكيد.</li>
+        <li>تأكيد موعد التسليم قبل إنشاء الطلب.</li>
+        <li>تسجيل سبب كل إلغاء ومتابعته أسبوعيًا.</li>
+      </ul>
+      <p class="muted" style="font-size:9pt">الهدف: خفض الإلغاء 5 نقاط دون أن تنخفض الطلبات المؤكدة.</p>
+    </div>
+    <div class="box">
+      <h3>توحيد المؤشر والقياس</h3>
+      <ul class="tight">
+        <li><b>تعريف واحد:</b> المبيعات شاملة الضريبة والشحن بعد الخصم ÷ الطلبات المؤهلة. الرقمان 800 و700 لم يتطابقا مع أي تعريف تحقّقت منه.</li>
+        <li><b>تقارير سلة:</b> لا تحتوي بيانات قبل 25 أكتوبر، فتُطلب إعادة تعبئتها.</li>
+        <li><b>كلارتي:</b> يُربط بجود لمراجعة سلوك الزوار في صفحات البوكسات والسلة.</li>
+        <li><b>الطلبات الأخيرة:</b> يُعاد قياس أي أسبوع بعد 7 أيام، لأن الطلبات الحديثة لم تكتمل حالتها بعد.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:14px">خطة التنفيذ</h2>
+  <div class="timeline">
+    <div class="phase"><div class="w">الأسبوع 1 (فوري)</div>
+      <ul class="tight"><li>اعتماد تعريف المؤشر.</li><li>إعادة ترتيب الأقسام والحجم الافتراضي.</li><li>قائمة التواصل ونص الموظفين لأسبوع رواتب 26 نوفمبر.</li><li>مراجعة مخزون البوكسات البلدية.</li></ul></div>
+    <div class="phase"><div class="w">الأسبوعان 2–3 (اختبارات)</div>
+      <ul class="tight"><li>اختبار إضافات السلة بنسبة 50/50.</li><li>اختبار «بوكسين» على صفحات البوكسات.</li><li>عربون الطلبات اليدوية الكبيرة.</li><li>تنفيذ التواصل من 26 نوفمبر إلى 2 ديسمبر مع مجموعة مقارنة.</li></ul></div>
+    <div class="phase"><div class="w">الأسبوع 4 (قرار)</div>
+      <ul class="tight"><li>تقييم كل تجربة اقتصاديًا.</li><li>تعميم ما نجح.</li><li>اختبار عتبة الهدية 850.</li><li>ترقية «الجوهر».</li></ul></div>
+  </div>
+
+  <h2 style="margin-top:14px">مؤشرات المتابعة ومعايير النجاح</h2>
+  <table>
+    <tr><th>المؤشر</th><th class="n">الحالي</th><th class="n">الهدف بعد 30 يومًا</th><th>ملاحظة</th></tr>
+    <tr><td>متوسط قيمة الطلب</td><td class="n num">744</td><td class="n num"><span dir="ltr" style="unicode-bidi:isolate">≥ 785</span></td><td>800 في أسابيع الرواتب</td></tr>
+    <tr><td>متوسط الطلبات اليدوية</td><td class="n num">655</td><td class="n num"><span dir="ltr" style="unicode-bidi:isolate">≥ 750</span></td><td>أكبر مصدر للانخفاض</td></tr>
+    <tr><td>طلبات 1000+ اليدوية / أسبوع</td><td class="n num">24</td><td class="n num"><span dir="ltr" style="unicode-bidi:isolate">≥ 40</span></td><td>كانت 49</td></tr>
+    <tr><td>نسبة إلغاء الطلبات اليدوية</td><td class="n num">29%</td><td class="n num"><span dir="ltr" style="unicode-bidi:isolate">≤ 22%</span></td><td>عربون وتأكيد</td></tr>
+    <tr><td>الطلبات المؤهلة / أسبوع</td><td class="n num">953</td><td class="n">لا تنخفض</td><td>شرط أساسي</td></tr>
+    <tr><td>هامش المساهمة / طلب</td><td class="n num">162</td><td class="n num"><span dir="ltr" style="unicode-bidi:isolate">≥ 175</span></td><td>بعد الهدايا والخصومات</td></tr>
+    <tr><td>معدل التحويل (سلة)</td><td class="n num">3.03%</td><td class="n">لا ينخفض أكثر من 0.15 نقطة</td><td>مؤشر حماية</td></tr>
+  </table>
+  <div class="callout"><b>قاعدة القرار:</b> النجاح يُقاس اقتصاديًا. الوصول إلى 800 مع انخفاض الطلبات أو الهامش يعني <b>إيقاف التجربة وإعادة تقييمها</b>.</div>
+
+  <div class="foot">
+    <b>المنهجية والمصادر:</b> البيانات من سلة عبر اتصال جود (التاجر 1562055600)، واستُخرجت في 9 نوفمبر 2026. المتوسط = مجموع المبيعات ÷ الطلبات المؤهلة. تفكيك الانخفاض تم بطريقة المزيج والقيمة المتماثلة على فئات لا تتداخل (قنوات البيع، ثم عائلات المنتجات في الطلبات اليدوية: 660 طلبًا مكتملة). التقديرات تفترض ثبات عدد الطلبات، وخُصم منها 20% لتداخل التوصيات.
+    <br><b>غير متاح بعد:</b> بيانات قبل 25 أكتوبر، وكلارتي، وتكاليف أودو، ومسار الشراء مقسّمًا حسب قيمة السلة. التفاصيل الكاملة في ملف Excel والتقرير المرافق.
+  </div>
+</section>
+
+</body>
+</html>
