@@ -20,6 +20,7 @@ sheet('README', [
  ['AOV definition (primary, matches Salla report)','sales (incl. 15% VAT + shipping fee, after discounts) / sales_count (qualified orders; excludes pending-payment/cancelled etc. per Salla reports service)'],
  ['source','JOUD gateway -> joud-salla-full-v1 -> salla_full_read_reports_sales_over_time (grain=day) and reports_sales_summary(compare=previous_period)'],
  ['scripts','scripts/analyze_daily.py (metrics, comparison, decomposition), scripts/extract_orders_page.py (order-level, pending), scripts/build_workbook.py'],
+ ['update 2026-11-09 12:15 Riyadh','gateway back: added channel split, full dashboard order pull (660 orders), product report; sequential calls only'],
  ['status','PARTIAL — JOUD gateway stopped responding at ~07:40 UTC; order-level, GA4, Clarity, Odoo reads not completed. See 07_data_gaps.'],
 ])
 from_csv('01_daily_metrics', '01_daily_metrics.csv')
@@ -31,4 +32,6 @@ from_csv('06_recommendations', '06_recommendations.csv')
 from_csv('07_data_gaps', '07_data_gaps.csv')
 from_csv('08_reconciliation', '08_reconciliation.csv')
 from_csv('09_clarity_ux_log', '09_clarity_ux_log.csv')
+for n in ('10_decomp_channel','11_dashboard_summary','12_dashboard_value_bands','13_dashboard_decomp_family','14_dashboard_lead_items','15_dashboard_cancellations','16_contribution_summary'):
+    from_csv(n, n + '.csv')
 fn = os.path.join(out, 'kabsh_aov_analysis.xlsx'); wb.save(fn); print(fn)

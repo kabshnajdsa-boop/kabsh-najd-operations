@@ -40,7 +40,7 @@ pg = sc.get('pagination') or {}
 res = {'day': day, 'page': page, 'observed_at': d.get('observed_at'),
        'pagination': {k: pg.get(k) for k in ('count', 'total', 'perPage', 'currentPage', 'totalPages')},
        'orders': out}
-os.makedirs(os.path.join(root, 'data', 'orders'), exist_ok=True)
-fn = os.path.join(root, 'data', 'orders', f'{day}_p{page}.json')
+os.makedirs(os.path.join(root, 'data', os.environ.get('ORDERS_DIR','orders')), exist_ok=True)
+fn = os.path.join(root, 'data', os.environ.get('ORDERS_DIR','orders'), f'{day}_p{page}.json')
 json.dump(res, open(fn, 'w'), ensure_ascii=False)
 print(fn, 'orders', len(out), 'pagination', res['pagination'])

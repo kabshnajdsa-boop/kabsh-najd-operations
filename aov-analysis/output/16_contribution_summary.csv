@@ -1,0 +1,15 @@
+﻿factor (non-overlapping channel base: reports_sales_by device),contribution_sar,status,evidence
+Dashboard (manual) orders: lower AOV within channel (771.8 -> 654.5),-23.62,proven arithmetically,10_decomp_channel.csv; reconciled with order-level pull 768.6 -> 660.3 (11_dashboard_summary.csv)
+  of which: 1000+ SAR dashboard orders fell 49 -> 24 (19.9% -> 10.9% of dashboard orders),~-15 (est.),proven arithmetically (band shift); cause = likely payday timing,12_dashboard_value_bands.csv; big orders on 10-27 (9) and 11-01 (11)
+"  of which: shift to cheaper Jawhar sheep (share 11.0% -> 16.7%, AOV 657 -> 533)",~-4 (est.),proven arithmetically,13_dashboard_decomp_family.csv
+  of which: boxes share 44.7% -> 35.7%; Harri baladi box lead orders 26 -> 11,~-4 (est.),proven arithmetically; cause unknown (stock? promotion?),14_dashboard_lead_items.csv
+Website (Store) lower AOV within channel (783.7 -> 767.4),-4.97,proven arithmetically,10_decomp_channel.csv
+API channel lower AOV (777.2 -> 772.6),-1.33,proven arithmetically,
+App (Mobile) higher AOV (756.8 -> 776.7),4.07,proven arithmetically (offsetting),
+Mahly,0.37,,
+Channel mix (share shifts between channels),-2.74,proven arithmetically,
+TOTAL (device report basis 774.14 -> 745.92),-28.22,,vs -27.81 on sales/sales_count basis; 0.4 SAR basis difference
+"Alternative lens (overlapping, NOT additive): absence of peak days",-15.27,"likely explanation (payday), needs 2nd cycle",03_decomposition_daytype.csv
+Discounts per order,0,ruled out,6.11 -> 6.06 SAR/order
+Shipping fee per order,-0.92,minor,04_bridge_components.csv
+"New vs returning (new-account proxy, dashboard)",~0,not a driver (proxy),20.7% -> 23.1% new-account share

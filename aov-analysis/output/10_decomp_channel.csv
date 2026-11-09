@@ -1,0 +1,7 @@
+﻿channel,prev_orders,prev_share,prev_aov,cur_orders,cur_share,cur_aov,mix_effect_sar,within_effect_sar
+Store (website),437,0.3171,783.7,275,0.2926,767.4,-19.06,-4.97
+API,425,0.3084,777.18,251,0.267,772.55,-32.08,-1.33
+Mobile (app),262,0.1901,756.8,206,0.2191,776.69,22.25,4.07
+Dashboard (manual),253,0.1836,771.8,206,0.2191,654.5,25.35,-23.62
+Mahly,1,0.0007,436.0,2,0.0021,698.53,0.8,0.37
+TOTAL,,,774.14,,,745.92,-2.74,-25.48

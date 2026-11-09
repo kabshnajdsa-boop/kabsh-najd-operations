@@ -1,8 +1,8 @@
 ﻿check,value_a,value_b,difference,explanation / status
-Salla summary AOV vs sales/sales_count (last 7d),750 (rounded by Salla),744.35,5.65,summary rounds sales to integer AOV; investigating — exact figure from daily rows used
-Salla summary AOV vs sales/sales_count (prev 7d),778,772.16,5.84,same as above
+Salla summary AOV vs sales/sales_count (last 7d),750 (rounded),744.35,5.65,summary rounds; exact daily sums used
 Daily rows sum sales (last 7d) vs summary,"709,364.00","709,364",0,match
-Daily rows sum sales (prev 7d) vs summary,"1,094,154.85","1,094,154",0.85,rounding
-orders_list total 2026-11-08 vs reports orders,159,166,7,reports count includes orders created/edited after list snapshot or deleted/draft; under investigation
-Qualified orders (sales_count) vs all orders (last 7d),953,"1,182",229,"pending-payment, under-review not yet counted, cancelled — not separable without order-level pull"
+Dashboard AOV: report vs order-level (prev),771.80 (253 orders),768.59 (246 qualified),7 orders,qualification rule differs slightly (we exclude canceled/deleted/pending/quote)
+Dashboard AOV: report vs order-level (last),654.50 (206 orders),660.31 (221 qualified),15 orders,"same; under_review orders included by us, likely not yet by reports"
+Dashboard orders pulled,348 / 312,pagination.total 348 / 312,0,"complete, no duplicate ids"
+Channel report total orders vs sales_count,"1,378 / 940","1,417 / 953",39 / 13,device report omits some orders (unknown device)
 User-reported AOV,800 -> 700,772 -> 744,~72 SAR of the reported 100,source/definition of 800/700 not identified
