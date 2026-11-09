@@ -1,0 +1,10 @@
+﻿gap,status,impact,how to close
+Salla reports service has no data before 2026-10-25,returns 0 for 2026-08-11..10-24 although orders exist (orders_list shows 151 orders on 10-15),"no 30-day window, no ""last 7 vs previous 23"", no 60–90 day payday pattern",page orders_list per day (scripts/extract_orders_page.py) once gateway is up; or ask Salla to backfill reports
+JOUD gateway unresponsive from ~07:40 UTC,every tool (including joud2_profile) timed out after 60s,"blocked: order-level pull, product mix, new vs returning, city, device, coupons, funnel, GA4, BigQuery, Odoo costs",retry later; run the 6 day-batches sequentially (parallel load may have contributed)
+Order-level line prices / variants (5/8/14 kg),orders_list gives only item name + qty + order total,cannot size add-on or weight effects,orders_get per sampled order (~300 order sample) or reports_sales_by dimension=product_option
+reports_orders_list,returned 15 rows for 2026-11-08 with next_offset=null (truncated),unusable as a full line export,do not use; use orders_list + orders_get
+Microsoft Clarity,no Clarity connector in the JOUD catalogue for kabsh,no UX/session evidence,"add Clarity to JOUD (API token, project id) — outside this session"
+GA4 / BigQuery funnel by basket value,connector verified (properties 333082030 / 460813092 readable) but reads timed out,no funnel or purchase-to-order reconciliation,re-run google_daily_report / google_purchase_evidence per day
+Odoo cost,Salla reports cost_price used (sales_cost_price),margin uses Salla cost field; may differ from Odoo actual cost,read joud040-odoo once gateway is up
+Campaign / price / stock change logs,not read,cannot build change timeline (section 9),Meta/Snap/Google via joud-direct-marketing-v1; Salla product history
+Order maturity,qualified share 0.68 on 11-08 vs 0.80–0.89 earlier,last days may gain qualified orders; AOV of late-qualifying orders unknown,re-read the same week after 7 days

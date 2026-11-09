@@ -1,0 +1,5 @@
+﻿component,prev_per_order,cur_per_order,contribution_sar
+goods_after_discount_ex_vat,658.69,635.43,-23.26
+vat,100.72,97.09,-3.63
+shipping_fee,12.75,11.82,-0.92
+TOTAL (= AOV change),772.16,744.35,-27.81

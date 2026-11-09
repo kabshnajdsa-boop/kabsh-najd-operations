@@ -1,0 +1,8 @@
+﻿check,value_a,value_b,difference,explanation / status
+Salla summary AOV vs sales/sales_count (last 7d),750 (rounded by Salla),744.35,5.65,summary rounds sales to integer AOV; investigating — exact figure from daily rows used
+Salla summary AOV vs sales/sales_count (prev 7d),778,772.16,5.84,same as above
+Daily rows sum sales (last 7d) vs summary,"709,364.00","709,364",0,match
+Daily rows sum sales (prev 7d) vs summary,"1,094,154.85","1,094,154",0.85,rounding
+orders_list total 2026-11-08 vs reports orders,159,166,7,reports count includes orders created/edited after list snapshot or deleted/draft; under investigation
+Qualified orders (sales_count) vs all orders (last 7d),953,"1,182",229,"pending-payment, under-review not yet counted, cancelled — not separable without order-level pull"
+User-reported AOV,800 -> 700,772 -> 744,~72 SAR of the reported 100,source/definition of 800/700 not identified

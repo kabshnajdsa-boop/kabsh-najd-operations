@@ -1,0 +1,6 @@
+﻿segment,prev_qualified_orders,prev_aov,cur_qualified_orders,cur_aov
+peak_days(prev: 2026-10-27 2026-10-28 2026-11-01),783,784.52,0,
+normal_days,634,756.9,953,744.35
+effect: absence of peak days (calendar/payday),,,,-15.27
+effect: lower AOV on comparable normal days,,,,-12.55
+TOTAL change,,,,-27.81
