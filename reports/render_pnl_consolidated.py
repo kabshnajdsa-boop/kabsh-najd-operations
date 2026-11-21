@@ -61,3 +61,6 @@ nh="".join(f"<p>{n}</p>" for n in notes)
 html=f'<html><head><meta charset="utf-8"><style>{css(t)}{extra}body{{width:760px}}</style></head><body><div class="hd"><div><h1>التقرير الشامل للربح والخسارة</h1><h2>كبش نجد + الراقي + حلالنا — 1 إلى 20 نوفمبر 2026</h2><p>{stamp}</p></div><div style="display:flex">{logos}</div></div>{big}{tbl}<h3>نتيجة كل يوم (إجمالي المتاجر)</h3><table class="day"><tr><th>اليوم</th><th style="background:#9B1C20;color:#F4E3C0">كبش نجد</th><th style="background:#111;color:#C5A04A">الراقي</th><th style="background:#5B2A12;color:#F6E9D3">حلالنا</th><th>الإجمالي</th></tr>{drows}</table><div class="notes">{nh}</div></body></html>'
 import os; os.makedirs("/tmp/pnl_html",exist_ok=True); open("/tmp/pnl_html/all.html","w").write(html)
 print({k:round(v,2) for k,v in tot.items()},[round(x,2) for x in S])
+snotes=[notes[1],notes[3],notes[4]]
+shtml=f'<html><head><meta charset="utf-8"><style>{css(t)}{extra}body{{width:760px}}</style></head><body><div class="hd"><div><h1>ملخص الربح والخسارة الشامل</h1><h2>كبش نجد + الراقي + حلالنا — 1 إلى 20 نوفمبر 2026</h2><p>{stamp}</p></div><div style="display:flex">{logos}</div></div>{big}<div class="cnt">{tot["orders"]:,} طلبًا مؤهلاً</div>{tbl}<div class="notes">{"".join(f"<p>{n}</p>" for n in snotes)}</div></body></html>'
+open("/tmp/pnl_html/all_summary.html","w").write(shtml)
