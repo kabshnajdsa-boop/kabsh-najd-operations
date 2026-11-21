@@ -3,6 +3,7 @@ import json, base64, datetime, sys
 SCR="/tmp/claude-0/-home-user-kabsh-najd-operations/ed4d844e-41fc-50e8-b945-b9c23bf14713/scratchpad/"
 OUT="/home/user/kabsh-najd-operations/reports/"
 DAYS=[f"2026-11-{i:02d}" for i in range(1,21)]
+WA_MSGS={"alraqi":9700,"hlalna":18600}; WA_RATE=0.25; WA={k:v*WA_RATE for k,v in WA_MSGS.items()}  # Meta WhatsApp Manager insights (Marketing Messages API) 1-20 Nov, delivered; rounded to 0.1K
 PROV=[("google_ads","إعلانات جوجل"),("meta","إعلانات ميتا"),("snap","إعلانات سناب"),("tiktok","إعلانات تيك توك")]
 f=lambda x:float(x) if x not in (None,"") else 0.0
 def fmt(x,sign=False):
@@ -67,7 +68,7 @@ h3{{font-size:21px;color:{t['title']};margin:20px 4px 8px;font-weight:800}}
 .big{{background:{t['hl']};border-radius:26px;text-align:center;padding:26px 10px;margin-bottom:14px}}.big .l{{font-size:22px;font-weight:800;color:{t['title']}}}.big .v{{font-size:58px;font-weight:800;color:{t['hltxt']}}}
 .cnt{{text-align:center;font-weight:800;font-size:15px;margin:12px 0}}"""
 def build(co):
-    t=THEMES[co]; D=days_data(co); T,rows=agg(D,co)
+    t=THEMES[co]; D=days_data(co); T,rows=agg(D,co); T["wa"]=WA[co]; T["res_day"]=T["res"]; T["res"]=T["res"]-T["wa"]
     now=datetime.datetime.utcnow()+datetime.timedelta(hours=3)
     stamp=f"الاستخراج: {now.day} نوفمبر 2026 | {now:%H:%M} بتوقيت السعودية"
     logo="data:image/png;base64,"+base64.b64encode(open(t["logo"],"rb").read()).decode()
@@ -93,6 +94,7 @@ def build(co):
         miss=sum(1 for d in DAYS if D[d]["has"] and D[d]["ads"].get(k) is None)
         L.append((lab,"جود: دولار × 3.75"+(f" — غير متاح في {miss} أيام" if miss else ""),-T["adsum"][k],""))
     L.append(("إجمالي الإعلانات (المتاح)","توضيحي: لا يخصم مرة ثانية",-T["adst"],"hl"))
+    L.append(("رسائل حملات واتساب",f"ميتا: {WA_MSGS[co]:,} رسالة واصلة (تقريبًا) × 0.25",-T["wa"],""))
     nd=sum(1 for d in DAYS if D[d]["has"] and D[d]["deliv"]>0)
     L.append(("مصاريف التوصيل","وفق سياسة جود (25 ريال للطلب المؤهل)" if co=="hlalna" else "وفق سياسة الراقي (25 ر.س لطلب غير مستلم > 800)",-T["deliv"],""))
     L.append(("الربح الإداري التقديري","إجمالي %d يومًا محتسبًا"%(20-len(T["nodata"])-len(T["excl"])),T["res"],"fin"))
@@ -107,6 +109,7 @@ def build(co):
         if r is not None and r.get("exc"): drows+=f'<tr style="color:#999"><td>{dl}</td><td>{r["orders"]}</td><td>{fmt(r["net"])}</td><td>غير متاح</td><td>غير متاح</td></tr>'; continue
         if r is None: drows+=f'<tr><td>{dl}</td><td colspan="4" style="color:#999">لا بيانات (تقرير غير مكتمل في جود)</td></tr>'
         else: drows+=f'<tr><td>{dl}</td><td>{r["orders"]}</td><td>{fmt(r["net"])}</td><td>{fmt(r["ads"])}{"*" if r["inc"] else ""}</td><td class="{cls(r["res"]) or "pos"}">{fmt(r["res"])}</td></tr>'
+    drows+=f'<tr style="font-weight:700"><td>رسائل واتساب (إجمالي الفترة)</td><td>—</td><td>—</td><td>—</td><td class="neg">{fmt(-T["wa"])}</td></tr>'
     drows+=f'<tr class="tot"><td>إجمالي الأيام المحتسبة</td><td>{T["orders"]}</td><td>{fmt(T["net"])}</td><td>{fmt(T["adst"])}</td><td>{fmt(T["res"])}</td></tr>'
     good=sum(1 for d,r in rows if r and not r.get("exc") and r["res"]>0); best=max((x for x in rows if x[1] and not x[1].get("exc")),key=lambda x:x[1]["res"]); worst=min((x for x in rows if x[1] and not x[1].get("exc")),key=lambda x:x[1]["res"])
     inc=("، ".join(str(int(x[-2:])) for x in T["incomplete"]))
@@ -115,13 +118,13 @@ def build(co):
       (f"أيام لم تُحتسب لعدم توفر أي إنفاق إعلاني في جود ({'، '.join(str(int(x[-2:])) for x in T['excl'])}): تظهر مبيعاتها في الجدول فقط وليست ضمن الإجماليات، ولا يُعدّ إنفاقها صفرًا." if T['excl'] else ""),
       (f"أيام بلا بيانات في جود (فشل التجهيز): {nod} — غير محتسبة ولا تُعدّ أصفارًا." if nod else ""),
       f"* أيام إنفاق إعلانات غير مكتمل في جود ({inc}): يظهر فيها المتاح فقط، وربح هذه الأيام أعلى من الواقع بقدر الإنفاق الناقص.",
-      "لا تشمل مصاريف التشغيل ولا رسائل واتساب (غير مطبقة على "+t['name']+").",
+      "لا تشمل مصاريف التشغيل (غير مطبقة على "+t['name']+"). رسائل واتساب محتسبة لإجمالي الفترة من إحصاءات ميتا (تقريبية لأنها بالآلاف) ولا توزَّع على الأيام.",
       f"أيام بربح: {good} من {20-len(T['nodata'])}. أفضل يوم: {int(best[0][-2:])} نوفمبر ({fmt(best[1]['res'])}) وأضعف يوم: {int(worst[0][-2:])} نوفمبر ({fmt(worst[1]['res'])}).",
       "تقرير إداري تقديري وليس إقفالًا محاسبيًا."]
     nh="".join(f"<p>{n}</p>" for n in notes if n)
     head=lambda title,sub:f'<div class="hd"><div><h1>{title}</h1><h2>{sub}</h2><p>{stamp}</p></div><img src="{logo}"></div>'
     main=f'<html><head><meta charset="utf-8"><style>{css(t)}</style></head><body>{head("تقرير الربح والخسارة الشهري","نوفمبر 2026: من 1 إلى 20 نوفمبر — "+t["name"])}<table class="items"><tr><th style="text-align:right">البند</th><th>تفاصيل الاحتساب</th><th style="text-align:left">المبلغ بالريال</th></tr>{items}</table><h3>نتيجة كل يوم</h3><table class="day"><tr><th>اليوم</th><th>الطلبات</th><th>صافي الإيراد</th><th>الإعلانات</th><th>النتيجة</th></tr>{drows}</table><div class="notes">{nh}</div></body></html>'
-    keep=("مبيعات المنتجات","صافي الإيرادات الإدارية","المنتج والتغليف والهدر","إجمالي عمولات التقسيط","إجمالي الإعلانات (المتاح)","مصاريف التوصيل","الربح الإداري التقديري")
+    keep=("رسائل حملات واتساب","مبيعات المنتجات","صافي الإيرادات الإدارية","المنتج والتغليف والهدر","إجمالي عمولات التقسيط","إجمالي الإعلانات (المتاح)","مصاريف التوصيل","الربح الإداري التقديري")
     sitems="".join(tr(*x) for x in L if x[0] in keep)
     sm=f'<html><head><meta charset="utf-8"><style>{css(t)}</style></head><body>{head("ملخص الربح والخسارة",f"{t["name"]} — نوفمبر 2026 (1-20 نوفمبر)")}<div class="big"><div class="l">الربح الإداري التقديري</div><div class="v" style="direction:ltr">{fmt(T["res"])}</div></div><div class="cnt">{T["orders"]} طلبًا مؤهلاً | {20-len(T["nodata"])-len(T["excl"])} يومًا محتسبًا</div><table class="items">{sitems}</table><div class="notes">{nh}</div></body></html>'
     return main,sm,T
