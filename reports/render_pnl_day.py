@@ -32,7 +32,12 @@ def build_day(co):
       ("طلب واحد من الطلبات غير مؤهل بعد (بنود الفاتورة ناقصة)." if co=="alraqi" else ""),"تقرير إداري تقديري وليس إقفالًا محاسبيًا."]
     nh="".join(f"<p>{n}</p>" for n in notes if n)
     big=f'<div class="big"><div class="l">الربح قبل الإعلانات</div><div class="v" style="direction:ltr">{fmt(pre)}</div><div style="font-size:14px;margin-top:6px;color:#666">الربح الإداري الصافي غير متاح (إنفاق الإعلانات ناقص)</div></div>'
-    return f'<html><head><meta charset="utf-8"><style>{css(t)}</style></head><body><div class="hd"><div><h1>تقرير الربح والخسارة اليومي</h1><h2>{t["name"]} — {DAY_AR}</h2><p>{stamp}</p></div><img src="{logo}"></div>{big}<table class="items"><tr><th style="text-align:right">البند</th><th>تفاصيل الاحتساب</th><th style="text-align:left">المبلغ بالريال</th></tr>{items}</table><div class="notes">{nh}</div></body></html>', dict(net=net,cogs=cogs,inst=inst,deliv=deliv,wa=wacost,pre=pre)
+    keep=("صافي الإيرادات الإدارية","المنتج والتغليف والهدر","إجمالي عمولات التقسيط","رسائل حملات واتساب","مصاريف التوصيل","الربح قبل الإعلانات")
+    sitems="".join(tr(*x) for x in (L+L2) if x[0] in keep and x[0]!="إجمالي عمولات التقسيط") 
+    sitems=tr("صافي الإيرادات الإدارية","اليوم",net,"hl")+tr("المنتج والتغليف والهدر",L[-4][1],-cogs,"")+tr("عمولات التقسيط (تابي وتمارا)","وفق النموذج المعتمد",-inst,"")+'<tr><td>الإعلانات (4 منصات)</td><td>غير متاح في جود</td><td style="color:#999">غير متاح</td></tr>'+tr(*L2[0])+tr(*L2[1])+tr(*L2[2])+'<tr class="fin"><td>الربح الإداري التقديري</td><td>ينتظر إنفاق الإعلانات</td><td>غير متاح</td></tr>'
+    snh="".join(f"<p>{n}</p>" for n in (notes[1],notes[2],notes[5]) if n)
+    summ=f'<html><head><meta charset="utf-8"><style>{css(t)}</style></head><body><div class="hd"><div><h1>ملخص الربح والخسارة</h1><h2>{t["name"]} — {DAY_AR}</h2><p>{stamp}</p></div><img src="{logo}"></div>{big}<div class="cnt">{d["summary"].get("الطلبات المؤهلة")} طلبًا مؤهلاً</div><table class="items">{sitems}</table><div class="notes">{snh}</div></body></html>'
+    return f'<html><head><meta charset="utf-8"><style>{css(t)}</style></head><body><div class="hd"><div><h1>تقرير الربح والخسارة اليومي</h1><h2>{t["name"]} — {DAY_AR}</h2><p>{stamp}</p></div><img src="{logo}"></div>{big}<table class="items"><tr><th style="text-align:right">البند</th><th>تفاصيل الاحتساب</th><th style="text-align:left">المبلغ بالريال</th></tr>{items}</table><div class="notes">{nh}</div></body></html>', summ, dict(net=net,cogs=cogs,inst=inst,deliv=deliv,wa=wacost,pre=pre)
 os.makedirs("/tmp/pnl_html",exist_ok=True)
 for co in ("hlalna","alraqi"):
-    h,s=build_day(co); open(f"/tmp/pnl_html/{co}_day27.html","w").write(h); print(co,{k:round(v,2) for k,v in s.items()})
+    h,sm,s=build_day(co); open(f"/tmp/pnl_html/{co}_day27.html","w").write(h); open(f"/tmp/pnl_html/{co}_day27_summary.html","w").write(sm); print(co,{k:round(v,2) for k,v in s.items()})
